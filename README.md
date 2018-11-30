@@ -8,4 +8,16 @@ provided a list of in-frame CDS sequences that translate to the aligned amino ac
 
 ## Dependencies
 
-It depends on the [Biopython](https://biopython.org/) libraries: AlignIO, SeqIO, Alphabet, and codonalign
+It depends on [Biopython](https://biopython.org/) libraries: AlignIO, SeqIO, Alphabet, and codonalign.
+Installation of Biopython can be done through `pip`:
+
+    # for a system-wide install
+    pip install biopython
+    # or for a local install
+    pip install --user biopython
+
+## Installation
+
+    git clone https://github.com/santiagosnchez/CodonAlign.git
+    # or 
+    wget 
