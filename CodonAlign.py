@@ -47,6 +47,10 @@ else:
     names_aln = [ s.name for s in aln ]
     names_seq = [ s.name for s in seq ]
 
+    # check number of seqs
+    if len(names_aln) != len(names_seq):
+        sys.exit("Number of sequences in both files does not match.")
+
     # check names
     if all([ name in names_aln for name in names_seq]) and all([ name in names_seq for name in names_aln]):
         # build alignment
@@ -57,8 +61,9 @@ else:
         else:
             # print to file
             AlignIO.write(codon_aln, args.outfile, "fasta")
+            print "{1} aligned CDS sequences saved to {2}.".format(len(names_aln), args.outfile)
     else:
-        sys.exit("Amino acid and nucleotide sequences do not have the same labels")
+        sys.exit("Amino acid and nucleotide sequences do not have the same labels.")
 
 
 
