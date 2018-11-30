@@ -8,4 +8,4 @@ provided a list of in-frame CDS sequences that translate to the aligned amino ac
 
 ## Dependencies
 
-It depends on the Biopython[https://biopython.org/] libraries: AlignIO, SeqIO, Alphabet, and codonalign
+It depends on the [Biopython](https://biopython.org/) libraries: AlignIO, SeqIO, Alphabet, and codonalign
