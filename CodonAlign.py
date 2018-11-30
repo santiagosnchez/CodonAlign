@@ -61,7 +61,7 @@ else:
         else:
             # print to file
             AlignIO.write(codon_aln, args.outfile, "fasta")
-            print "{1} aligned CDS sequences saved to {2}.".format(len(names_aln), args.outfile)
+            print "{0} aligned CDS sequences saved to {1}.".format(len(names_aln), args.outfile)
     else:
         sys.exit("Amino acid and nucleotide sequences do not have the same labels.")
 
