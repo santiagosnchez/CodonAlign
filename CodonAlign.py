@@ -1,6 +1,6 @@
 #!/usr/bin/python env
 
-import argpasre
+import argparse
 import sys
 
 try:
