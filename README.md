@@ -20,4 +20,20 @@ Installation of Biopython can be done through `pip`:
 
     git clone https://github.com/santiagosnchez/CodonAlign.git
     # or 
-    wget 
+    wget https://raw.githubusercontent.com/santiagosnchez/CodonAlign/master/CodonAlign.py
+    
+## Running the code:
+
+For the help message type:
+
+    python CodonAlign.py -h
+
+An example would be:
+
+    python CodonAlign.py -p prot.aln.fas -c cds.fas -o cds.aln.fas
+    
+This example will save the output to a file and print a message to the screen.
+Please note that `codonalign` is currently printing a warning to STDERR. This message can be avoided by using the `-s` or `--stdout` option:
+
+    python CodonAlign.py -p prot.aln.fas -c cds.fas -s 2> /dev/null 1> cds.aln.fas
+
