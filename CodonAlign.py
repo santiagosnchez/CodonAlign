@@ -9,7 +9,7 @@ try:
     from Bio import Alphabet
     from Bio import codonalign
 except ImportError:
-    print "Biopython is required. Try with: pip install biopython"
+    print("Biopython is required. Try with: pip install biopython")
     sys.exit()
 else:
     # args
@@ -61,7 +61,7 @@ else:
         else:
             # print to file
             AlignIO.write(codon_aln, args.outfile, "fasta")
-            print "{0} aligned CDS sequences saved to {1}.".format(len(names_aln), args.outfile)
+            print(f"{len(names_aln)} aligned CDS sequences saved to {args.outfile}.")
     else:
         sys.exit("Amino acid and nucleotide sequences do not have the same labels.")
 
