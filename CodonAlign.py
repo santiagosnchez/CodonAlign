@@ -24,10 +24,10 @@ else:
 
     Note that amino acid and nucleotide sequences should correspondingly have the same label.\n""")
     parser.add_argument(
-    '--prot', '-p', type=str, default="",
+    '--prot', '-p', type=str, default="", required=True,
     help='an amino acid alignment in FASTA format.')
     parser.add_argument(
-    '--cds', '-c', type=str, default="",
+    '--cds', '-c', type=str, default="", required=True,
     help='''un aligned CDS sequences FASTA format. These must be in-frame and correspond
     to the untranslated version of the amino acid sequence.''')
     parser.add_argument(
@@ -41,7 +41,7 @@ else:
     # code
     # read data
     aln = AlignIO.read(args.prot, format="fasta", alphabet=Alphabet.IUPAC.protein)
-    seq = list(SeqIO.parse(args.cds, "fasta", alphabet=Alphabet.IUPAC.unambiguous_dna))
+    seq = list(SeqIO.parse(args.cds, format="fasta", alphabet=Alphabet.IUPAC.unambiguous_dna))
 
     # get names
     names_aln = [ s.name for s in aln ]
@@ -55,6 +55,8 @@ else:
     if all([ name in names_aln for name in names_seq]) and all([ name in names_seq for name in names_aln]):
         # build alignment
         codon_aln = codonalign.build(aln, seq)
+        # delete the <unknown description> label
+        for i in range(len(codon_aln)): codon_aln[i].description = ""
         if args.stdout:
             # print to screen
             print(codon_aln.format("fasta"))
@@ -64,6 +66,3 @@ else:
             print(f"{len(names_aln)} aligned CDS sequences saved to {args.outfile}.")
     else:
         sys.exit("Amino acid and nucleotide sequences do not have the same labels.")
-
-
-
