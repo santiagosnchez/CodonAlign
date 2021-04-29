@@ -59,7 +59,7 @@ else:
         for i in range(len(codon_aln)): codon_aln[i].description = ""
         if args.stdout:
             # print to screen
-            print(codon_aln.format("fasta"))
+            print(format(codon_aln, "fasta"))
         else:
             # print to file
             AlignIO.write(codon_aln, args.outfile, "fasta")
