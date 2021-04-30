@@ -2,10 +2,14 @@
 
 import argparse
 import sys
+import warnings
+warnings.simplefilter("ignore")
+# import re
 
 try:
     from Bio import AlignIO
     from Bio import SeqIO
+    from Bio import Seq
     from Bio import Alphabet
     from Bio import codonalign
 except ImportError:
@@ -42,6 +46,11 @@ else:
     # read data
     aln = AlignIO.read(args.prot, format="fasta", alphabet=Alphabet.IUPAC.protein)
     seq = list(SeqIO.parse(args.cds, format="fasta", alphabet=Alphabet.IUPAC.ambiguous_dna))
+    
+    # change missing data for gap
+    # change lowercase for uppercase
+    # for s in seq:
+    #    s.seq = Seq.Seq(re.sub("N","-",str(s.seq)).upper(), alphabet=Alphabet.IUPAC.ambiguous_dna)
 
     # get names
     names_aln = [ s.name for s in aln ]
@@ -54,15 +63,19 @@ else:
     # check names
     if all([ name in names_aln for name in names_seq]) and all([ name in names_seq for name in names_aln]):
         # build alignment
-        codon_aln = codonalign.build(aln, seq)
-        # delete the <unknown description> label
-        for i in range(len(codon_aln)): codon_aln[i].description = ""
-        if args.stdout:
-            # print to screen
-            print(format(codon_aln, "fasta"))
+        try:
+            codon_aln = codonalign.build(aln, seq)
+        except:
+            print("Could not generate alignment. Sequences probably include ambiguous or missing data.", file=sys.stderr)
         else:
-            # print to file
-            AlignIO.write(codon_aln, args.outfile, "fasta")
-            print(f"{len(names_aln)} aligned CDS sequences saved to {args.outfile}.")
+            # delete the <unknown description> label
+            for i in range(len(codon_aln)): codon_aln[i].description = ""
+            if args.stdout:
+                # print to screen
+                print(format(codon_aln, "fasta"))
+            else:
+                # print to file
+                AlignIO.write(codon_aln, args.outfile, "fasta")
+                print(f"{len(names_aln)} aligned CDS sequences saved to {args.outfile}.", file=sys.stderr)
     else:
         sys.exit("Amino acid and nucleotide sequences do not have the same labels.")
