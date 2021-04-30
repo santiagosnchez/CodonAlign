@@ -41,7 +41,7 @@ else:
     # code
     # read data
     aln = AlignIO.read(args.prot, format="fasta", alphabet=Alphabet.IUPAC.protein)
-    seq = list(SeqIO.parse(args.cds, format="fasta", alphabet=Alphabet.IUPAC.unambiguous_dna))
+    seq = list(SeqIO.parse(args.cds, format="fasta", alphabet=Alphabet.IUPAC.ambiguous_dna))
 
     # get names
     names_aln = [ s.name for s in aln ]
